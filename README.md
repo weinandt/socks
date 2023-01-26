@@ -25,3 +25,8 @@ Infrastructure and patterns for a scalable web socket solution.
 1. `cd server`
 1. `docker build -t test .`
 1. `docker run -p 8080:8080 test`
+
+## Deploy
+1. cd `deploy`
+1. Fill out `region` and `accountId` in `deploy.sh`
+1. `./deploy.sh`
