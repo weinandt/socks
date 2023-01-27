@@ -1,6 +1,9 @@
 REGION="us-east-2"
 ACCOUNT_ID=""
 
+# Exiting on failure
+set -e
+
 cd ../server
 
 docker build -t socks .
