@@ -26,7 +26,15 @@ Infrastructure and patterns for a scalable web socket solution.
 1. `docker build -t test .`
 1. `docker run -p 8080:8080 test`
 
-## Deploy
-1. cd `deploy`
-1. Fill out `region` and `accountId` in `deploy.sh`
-1. `./deploy.sh`
+## Run Kube Cluster locally
+1. Install kind
+1. `kind create cluster`
+
+### Load New Image Into the Cluster
+1. `docker build -t <imageName> .`
+1. `kind load docker-image <imageName>`
+1. `kubectl rollout restart deployment <deployment-name-here>`
+
+## Kubectl commands
+- Get logs for all pods in a deployment: `kubectl logs -f -l app=<app-name-here>`
+    - This will need to be re-run if there is a deployment.
