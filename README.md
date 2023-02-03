@@ -29,6 +29,9 @@ Infrastructure and patterns for a scalable web socket solution.
 ## Run Kube Cluster locally
 1. Install kind
 1. `kind create cluster`
+1. Apply all kubernetes yml: `kubectl apply -f ./kubernetes`
+1. `kubectl port-forward service/example-service 3000:80`
+1. Go to `localhost:3000` in the browser
 
 ### Load New Image Into the Cluster
 1. `docker build -t <imageName> .`
