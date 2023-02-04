@@ -7,7 +7,7 @@ Infrastructure and patterns for a scalable web socket solution.
 1. Load all necessary images into cluster (see instructions for loading image into cluster)
 1. Apply all kubernetes yml: `kubectl apply -f ./kubernetes`
 1. `kubectl port-forward service/local-load-balancer 8080:80`
-1. Go to `localhost:3000` in the browser
+1. Go to `localhost:8080` in the browser
 
 ### Load New Image Into the Cluster
 1. `docker build -t <imageName> .`
