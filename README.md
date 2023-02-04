@@ -31,7 +31,7 @@ Infrastructure and patterns for a scalable web socket solution.
 1. `kind create cluster`
 1. Apply all kubernetes yml: `kubectl apply -f ./kubernetes`
 1. Load all necessary images into cluster
-1. `kubectl port-forward service/example-service 3000:80`
+1. `kubectl port-forward service/example-service 8080:80`
 1. Go to `localhost:3000` in the browser
 
 ### Load New Image Into the Cluster
