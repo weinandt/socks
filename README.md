@@ -13,6 +13,7 @@ Infrastructure and patterns for a scalable web socket solution.
 1. `docker build -t <imageName> .`
 1. `kind load docker-image <imageName>`
 1. `kubectl rollout restart deployment <deployment-name-here>`
+    - This step is not necessary if done before applying kubernetes yaml.
 
 ## Kubectl commands
 - Get logs for all pods in a deployment: `kubectl logs -f -l app=<app-name-here>`
