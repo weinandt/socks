@@ -1,37 +1,12 @@
 # socks
 Infrastructure and patterns for a scalable web socket solution.
 
-
-## Provision Infrastructure
-1. `cd terraform`
-1. `terraform init`
-1. Fill out the `ohio.tfvars` file
-1. `terraform apply -var-file="ohio.tfvars"`
-
-## Run Server Locally
-1. Have node installed
-1. `cd server`
-1. `npm install`
-1. `npm run start`
-
-### Running server tests
-1. `npm run test`
-
-### Debugging server and test
-1. Open VSCode workspace in the `server` directory.
-1. Go to debug tab and select either the test or server debug drop down.
-
-### Run in docker
-1. `cd server`
-1. `docker build -t test .`
-1. `docker run -p 8080:8080 test`
-
 ## Run Kube Cluster locally
 1. Install kind
 1. `kind create cluster`
+1. Load all necessary images into cluster (see instructions for loading image into cluster)
 1. Apply all kubernetes yml: `kubectl apply -f ./kubernetes`
-1. Load all necessary images into cluster
-1. `kubectl port-forward service/example-service 8080:80`
+1. `kubectl port-forward service/local-load-balancer 8080:80`
 1. Go to `localhost:3000` in the browser
 
 ### Load New Image Into the Cluster
@@ -42,3 +17,10 @@ Infrastructure and patterns for a scalable web socket solution.
 ## Kubectl commands
 - Get logs for all pods in a deployment: `kubectl logs -f -l app=<app-name-here>`
     - This will need to be re-run if there is a deployment.
+
+## TODO
+1. Have websocket container find it's ip address.
+1. Use helm
+1. Add auth to websocket server
+1. Run a logging container in each pod. Logs should be accessable in the browser.
+    - Make sure the log rotation is configured.

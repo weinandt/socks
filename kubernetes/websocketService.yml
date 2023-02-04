@@ -2,28 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-deploy
-  labels:
-    app: example-app
-  annotations:
+  name: websocket-server-deployment # Must be unique within a namespace.
 spec:
   selector:
     matchLabels:
-      app: example-app
-  replicas: 2
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      app: websocket-server
+  replicas: 3
   template:
     metadata:
       labels:
-        app: example-app
+        app: websocket-server # Need a label so all the logs can be obtained.
     spec:
       containers:
-      - name: example-app
-        image: socks:latest
-        imagePullPolicy: Never
+      - name: websocket-server
+        image: websocket-server:latest
+        imagePullPolicy: Never # This is needed when running locally: https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster
         ports:
         - containerPort: 8080
