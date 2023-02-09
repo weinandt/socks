@@ -1,9 +1,10 @@
 import express from "express"
 import { WebSocketServer } from "ws"
+import process from "process";
 
 
 const app = express();
-const port = 8080; // default port to listen
+const port = 8080;
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
 
 // start the Express server
 const server = app.listen(port, () => {
+    console.log("Pod IP: " + process.env.POD_IP);
     console.log(`server started at http://localhost:${port}`)
 });
 

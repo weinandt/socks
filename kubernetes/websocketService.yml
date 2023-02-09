@@ -19,3 +19,8 @@ spec:
         imagePullPolicy: Never # This is needed when running locally: https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster
         ports:
         - containerPort: 8080
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP

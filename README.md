@@ -25,3 +25,4 @@ Infrastructure and patterns for a scalable web socket solution.
 1. Add auth to websocket server
 1. Run a logging container in each pod. Logs should be accessable in the browser.
     - Make sure the log rotation is configured.
+1. Make local kind cluster multi-node
