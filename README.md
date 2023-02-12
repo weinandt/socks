@@ -19,6 +19,11 @@ Infrastructure and patterns for a scalable web socket solution.
 - Get logs for all pods in a deployment: `kubectl logs -f -l app=<app-name-here>`
     - This will need to be re-run if there is a deployment.
 
+## Next work
+1. Create e2e test.
+1. Clients disconnecting should register.
+
+
 ## TODO
 1. Have websocket container find it's ip address.
 1. Use helm

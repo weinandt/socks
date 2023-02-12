@@ -1,22 +1,15 @@
 import express from "express"
 import process from "process";
+import { registerHandlers } from "./manualDI";
 
 const app = express();
 const port = 3000;
-
 app.use(express.json())
 
-app.post('/connections', (req, res) => {
-    console.log(req)
-
-    let nick = {
-        "test": 'asdf'
-    }
-    return res.send(nick);
-});
+// Registering all the http endpoints with the express application.
+registerHandlers(app)
 
 app.listen(port, () => {
-    console.log("Pod IP: " + process.env.POD_IP);
     console.log(`server started at http://localhost:${port}`)
 });
 
