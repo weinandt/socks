@@ -20,7 +20,7 @@ export class ConnectionInteractor {
         return []
      }
 
-     public registerConnection(connection: Connection){
+     public registerConnection(connection: Connection): Connection{
         let tenantGroup = this.tenantGroups.get(connection.tenantId)
         if (tenantGroup == null) {
             tenantGroup = new Map<string, Connection>()
@@ -28,6 +28,8 @@ export class ConnectionInteractor {
         }
 
         tenantGroup.set(connection.connectionId, connection)
+
+        return connection
      }
 
      public sendMessageToTenant(message: Message) {

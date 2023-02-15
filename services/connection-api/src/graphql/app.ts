@@ -34,25 +34,4 @@ export function createGraphqlApp(resolvers: any) {
     }))
 
     return app
-
-    /*
-    const resolvers = new Resolvers(ManualDI.createResolvers())
-    
-
-    const app = express()
-    app.use(cors())
-    app.use(express.json())
-
-    app.use('/graphql', graphqlHTTP(async (req, res, graphqlParams) => {
-        const context = await Context.createContext(req)
-
-        return {
-            schema: schemaWithResolvers,
-            graphiql: true,
-            context,
-        }
-    }))
-    */
-
-    
 }

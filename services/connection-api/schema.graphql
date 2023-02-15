@@ -1,3 +1,19 @@
+type Connection {
+  id: String!
+  tenantId: String!
+  websocketServerIp: String!
+}
+
+input RegisterConnectionInput {
+  id: String!
+  tenantId: String!
+  websocketServerIp: String!
+}
+
 type Query {
   curTime: String!
+}
+
+type Mutation {
+   registerConnection(input: RegisterConnectionInput): Connection
 }

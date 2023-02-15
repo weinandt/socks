@@ -3,8 +3,21 @@
 ## To Run Locally
 1. `npm install`
 1. Start the server: `npm run start`
-1. Start a client: `node localTestClient.mjs`
-    - `.mjs` is needed for top-level await.
+1. In a browser: `http:localhost:3000/graphql`
+1. Use the following query:
+````graphql
+mutation{
+  registerConnection(input: {
+    id: "guidhere"
+    websocketServerIp: "10.0.0.1"
+    tenantId: "fakeTenantGuidHere"
+  }) {
+    id
+    tenantId
+    websocketServerIp
+  }
+}
+````
 
 ### Run tests
 1. `npm run test`
