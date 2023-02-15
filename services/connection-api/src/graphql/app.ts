@@ -3,6 +3,8 @@ import express from "express"
 import { buildSchema } from 'graphql'
 import path from 'path'
 import fs from 'fs'
+import { addResolversToSchema } from '@graphql-tools/schema'
+import { graphqlHTTP } from "express-graphql"
 
 const readSchemaAsString = () => {
     const schemaAsString = fs.readFileSync(path.join(__dirname, '../../schema.graphql'), { encoding: 'utf-8' })
@@ -10,14 +12,32 @@ const readSchemaAsString = () => {
     return schemaAsString
 }
 
-export function createGraphqlApp() {
+export function createGraphqlApp(resolvers: any) {
     const schema = buildSchema(readSchemaAsString())
-    /*
-    const resolvers = new Resolvers(ManualDI.createResolvers())
     const schemaWithResolvers = addResolversToSchema({
         schema,
-        resolvers: resolvers.getResolvers(),
+        resolvers: resolvers,
     })
+
+    const app = express()
+    app.use(express.json())
+
+    app.use('/graphql', graphqlHTTP(async (req, res, graphqlParams) => {
+        // TODO: add context if wanting to do auth or something.
+        //const context = await Context.createContext(req)
+
+        return {
+            schema: schemaWithResolvers,
+            graphiql: true,
+            //context,
+        }
+    }))
+
+    return app
+
+    /*
+    const resolvers = new Resolvers(ManualDI.createResolvers())
+    
 
     const app = express()
     app.use(cors())
@@ -34,8 +54,5 @@ export function createGraphqlApp() {
     }))
     */
 
-    const app = express()
-    app.use(express.json())
-
-    return app
+    
 }

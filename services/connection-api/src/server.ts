@@ -1,7 +1,9 @@
 import process from "process";
 import { createGraphqlApp } from "./graphql/app";
+import { runDI } from "./manualDi";
 
-const app = createGraphqlApp()
+const di = runDI()
+const app = createGraphqlApp(di.resolvers)
 
 const port = 3000
 app.listen(port, () => {
