@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connection-api-deployment # Must be unique within a namespace.
+spec:
+  selector:
+    matchLabels:
+      app: connection-api
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: connection-api # Need a label so all the logs can be obtained.
+    spec:
+      containers:
+      - name: connection-api
+        image: connection-api:latest
+        imagePullPolicy: Never # This is needed when running locally: https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster
+        ports:
+        - containerPort: 3000
