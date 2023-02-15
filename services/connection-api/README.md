@@ -3,7 +3,7 @@
 ## To Run Locally
 1. `npm install`
 1. Start the server: `npm run start`
-1. In a browser: `http:localhost:3000/graphql`
+1. In a browser: `http://localhost:3000/graphql`
 1. Use the following query:
 ````graphql
 mutation{
