@@ -1,6 +1,6 @@
 import express from "express"
-import { ConnectionInteractor } from "./connections/connectionInteractor"
-import { WebsocketServerGateway } from "./connections/websocketServerGateway"
+import { ConnectionInteractor } from "../connections/connectionInteractor"
+import { WebsocketServerGateway } from "../connections/websocketServerGateway"
 
 const config = {
     websocketServerPort: 8080,

@@ -1,16 +1,11 @@
-import express from "express"
 import process from "process";
-import { registerHandlers } from "./manualDI";
+import { createGraphqlApp } from "./graphql/app";
 
-const app = express();
-const port = 3000;
-app.use(express.json())
+const app = createGraphqlApp()
 
-// Registering all the http endpoints with the express application.
-registerHandlers(app)
-
+const port = 3000
 app.listen(port, () => {
-    console.log(`server started at http://localhost:${port}`)
+    console.log(`Connection API server started on port: ${port}`)
 });
 
 // Making sure the process exits on ctrl + c.
