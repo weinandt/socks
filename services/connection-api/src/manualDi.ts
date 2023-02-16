@@ -1,5 +1,5 @@
 import { ConnectionInteractor } from "./connections/connectionInteractor";
-import { WebsocketServerGateway } from "./connections/websocketServerGateway";
+import { ConnectionManagementGateway } from "./connections/connectionRegistrationGateway";
 
 interface Interactors {
     connectionInteractor: ConnectionInteractor
@@ -12,18 +12,14 @@ function createResolvers(interactors: Interactors) {
         },
         Mutation: {
             registerConnection: (parent:any, args: any, context: any, info: any) => interactors.connectionInteractor.registerConnection(args.input),
+            deleteConnection: (parent:any, args: any, context: any, info: any) => interactors.connectionInteractor.deleteConnection(args.tenantId, args.connectionId),
         },
     };
 }
 
-const config = {
-    websocketServerPort: 3000,
-}
-
 export function runDI() {
-    const websocketServerGateway = new WebsocketServerGateway(config.websocketServerPort)
-    const connectionInteractor = new ConnectionInteractor(websocketServerGateway)
-
+    const connectionManagementGateway = new ConnectionManagementGateway()
+    const connectionInteractor = new ConnectionInteractor(connectionManagementGateway)
 
     const interactors: Interactors = {
         connectionInteractor,

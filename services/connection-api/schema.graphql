@@ -15,5 +15,6 @@ type Query {
 }
 
 type Mutation {
-   registerConnection(input: RegisterConnectionInput): Connection
-}
+  registerConnection(input: RegisterConnectionInput!): Connection!
+  deleteConnection(tenantId: String!, connectionId: String!): String!
+} 
