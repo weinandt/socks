@@ -19,6 +19,10 @@ mutation{
 }
 ````
 
+### Optional: Run in docker container:
+1. `docker build -t myimagename`
+1. `docker run -p 3000:3000 myimagename`
+
 ### Run tests
 1. `npm run test`
 

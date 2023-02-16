@@ -1,5 +1,5 @@
 import process from "process";
-import { createGraphqlApp } from "./graphql/app";
+import { createGraphqlApp } from "./app";
 import { runDI } from "./manualDi";
 
 const di = runDI()

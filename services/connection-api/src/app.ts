@@ -1,5 +1,4 @@
 import express from "express"
-//import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'graphql'
 import path from 'path'
 import fs from 'fs'
@@ -7,7 +6,7 @@ import { addResolversToSchema } from '@graphql-tools/schema'
 import { graphqlHTTP } from "express-graphql"
 
 const readSchemaAsString = () => {
-    const schemaAsString = fs.readFileSync(path.join(__dirname, '../../schema.graphql'), { encoding: 'utf-8' })
+    const schemaAsString = fs.readFileSync(path.join(__dirname, '../schema.graphql'), { encoding: 'utf-8' })
 
     return schemaAsString
 }
