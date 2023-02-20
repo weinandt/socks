@@ -1,5 +1,10 @@
+export interface HoldingServer {
+    serverId: string
+    ipAddress: string
+}
+
 export interface Connection {
     connectionId: string
     tenantId: string
-    websocketServerIp: string
+    holdingServer: HoldingServer
 }

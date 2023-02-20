@@ -1,5 +1,5 @@
 import { Connection } from "./connection";
-import { ConnectionManagementGateway } from "./connectionRegistrationGateway";
+import { ConnectionManagementGateway } from "./connectionManagementGateway";
 
 export class ConnectionInteractor {
     private connectionManagementGateway: ConnectionManagementGateway

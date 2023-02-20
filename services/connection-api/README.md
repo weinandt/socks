@@ -6,15 +6,14 @@
 1. In a browser: `http://localhost:3000/graphql`
 1. Use the following query:
 ````graphql
-mutation{
-  registerConnection(input: {
-    id: "guidhere"
-    websocketServerIp: "10.0.0.1"
-    tenantId: "fakeTenantGuidHere"
-  }) {
+mutation {
+  registerConnection(input: {id: "guidhere", tenantId: "fakeTenantGuidHere", holdingServer: {ipAddress: "10.0.0.1" id:"serverGuid"}}) {
     id
     tenantId
-    websocketServerIp
+    holdingServer {
+      id
+      ipAddress
+    }
   }
 }
 ````

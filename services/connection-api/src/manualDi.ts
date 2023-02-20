@@ -1,5 +1,5 @@
 import { ConnectionInteractor } from "./connections/connectionInteractor";
-import { ConnectionManagementGateway } from "./connections/connectionRegistrationGateway";
+import { ConnectionManagementGateway } from "./connections/connectionManagementGateway";
 
 interface Interactors {
     connectionInteractor: ConnectionInteractor

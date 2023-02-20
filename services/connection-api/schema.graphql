@@ -1,13 +1,23 @@
+type HoldingServer {
+  id: String!
+  ipAddress: String!
+}
+
 type Connection {
   id: String!
   tenantId: String!
-  websocketServerIp: String!
+  holdingServer: HoldingServer!
+}
+
+input HoldingServerInput {
+  id: String!
+  ipAddress: String!
 }
 
 input RegisterConnectionInput {
   id: String!
   tenantId: String!
-  websocketServerIp: String!
+  holdingServer: HoldingServerInput!
 }
 
 type Query {
