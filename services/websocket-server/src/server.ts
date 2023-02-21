@@ -1,12 +1,12 @@
 import express from "express"
 import { WebSocketServer } from "ws"
 import process from "process";
-
+import { v4 as uuidv4 } from "uuid"
+import { Connection } from "./connection/connection";
 
 const app = express();
 const port = 8080;
 
-// define a route handler for the default home page
 app.get("/message", (req, res) => {
     res.send("Hello world!")
 });
@@ -18,22 +18,13 @@ const server = app.listen(port, () => {
 });
 
 const webSocketServer = new WebSocketServer({ noServer: true });
-
-// @ts-ignore
-webSocketServer.on('connection', function connection(ws, request) {
-    console.log("new connection")
-
-    // @ts-ignore
-    ws.on('message', function message(data) {
-        console.log(`Received message ${data}`);
-    });
-});
+const websocketServerId = uuidv4()
 
 server.on('upgrade', function upgrade(request, socket, head) {
     // TODO: auth and destory socket if it fails auth.
     webSocketServer.handleUpgrade(request, socket, head, function done(ws) {
-        // @ts-ignore
-        webSocketServer.emit('connection', ws, request);
+        // TODO: figure out if you need to add this to a list of connections so garbage collection doesn't kill it.    
+        new Connection(websocketServerId, ws)
     });
 });
 
