@@ -9,7 +9,7 @@ const app = express();
 const port = 8080;
 
 const config = {
-    connectionManagementApiHost: "localhost",// "connection-api",
+    connectionManagementApiHost: "connection-api",
     connectionManagementApiPort: 3000
 }
 
@@ -25,10 +25,7 @@ const server = app.listen(port, () => {
 
 const webSocketServer = new WebSocketServer({ noServer: true });
 const websocketServerId = uuidv4()
-const holdingServerIp = process.env.POD_IP
-if (holdingServerIp == null) {
-    throw new Error("Could not get ip address from environment variable")
-}
+const holdingServerIp = process.env.POD_IP ?? "localhost"
 const connectionManagementGateway = new ConnectionManagementGateway(config.connectionManagementApiHost, config.connectionManagementApiPort, websocketServerId, holdingServerIp)
 
 server.on('upgrade', function upgrade(request, socket, head) {
