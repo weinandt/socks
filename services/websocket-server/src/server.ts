@@ -3,9 +3,15 @@ import { WebSocketServer } from "ws"
 import process from "process";
 import { v4 as uuidv4 } from "uuid"
 import { Connection } from "./connection/connection";
+import { ConnectionManagementGateway } from "./connection/connectionManagementGateway";
 
 const app = express();
 const port = 8080;
+
+const config = {
+    connectionManagementApiHost: "localhost",// "connection-api",
+    connectionManagementApiPort: 3000
+}
 
 app.get("/message", (req, res) => {
     res.send("Hello world!")
@@ -19,12 +25,18 @@ const server = app.listen(port, () => {
 
 const webSocketServer = new WebSocketServer({ noServer: true });
 const websocketServerId = uuidv4()
+const holdingServerIp = process.env.POD_IP
+if (holdingServerIp == null) {
+    throw new Error("Could not get ip address from environment variable")
+}
+const connectionManagementGateway = new ConnectionManagementGateway(config.connectionManagementApiHost, config.connectionManagementApiPort, websocketServerId, holdingServerIp)
 
 server.on('upgrade', function upgrade(request, socket, head) {
     // TODO: auth and destory socket if it fails auth.
-    webSocketServer.handleUpgrade(request, socket, head, function done(ws) {
-        // TODO: figure out if you need to add this to a list of connections so garbage collection doesn't kill it.    
-        new Connection(websocketServerId, ws)
+    webSocketServer.handleUpgrade(request, socket, head, async function done(ws) {
+        // TODO: figure out if you need to add this to a list of connections so garbage collection doesn't kill it.
+        
+        await Connection.createConnection(connectionManagementGateway, "fake tenantID", ws)
     });
 });
 
