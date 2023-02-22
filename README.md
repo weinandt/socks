@@ -6,14 +6,11 @@ Infrastructure and patterns for a scalable web socket solution.
 1. `kind create cluster`
 1. Load all necessary images into cluster (see instructions for loading image into cluster)
 1. Apply all kubernetes yml: `kubectl apply -f ./kubernetes`
-1. `kubectl port-forward service/local-load-balancer 8080:80`
+1. `kubectl port-forward service/local-load-balancer 8080:8080`
 1. Go to `localhost:8080` in the browser
 
 ### Load New Image Into the Cluster
-1. `docker build -t <imageName> .`
-1. `kind load docker-image <imageName>`
-1. `kubectl rollout restart deployment <deployment-name-here>`
-    - This step is not necessary if done before applying kubernetes yaml.
+1. `./localDeploy.sh`
 
 ## Kubectl commands
 - Get logs for all pods in a deployment: `kubectl logs -f -l app=<app-name-here>`
