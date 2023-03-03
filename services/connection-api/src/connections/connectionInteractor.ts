@@ -2,11 +2,7 @@ import { Connection } from "./connection";
 import { ConnectionManagementGateway } from "./connectionManagementGateway";
 
 export class ConnectionInteractor {
-    private connectionManagementGateway: ConnectionManagementGateway
-
-    constructor(connectionManagementGateway: ConnectionManagementGateway) {
-        this.connectionManagementGateway = connectionManagementGateway
-    }
+    constructor(private connectionManagementGateway: ConnectionManagementGateway) {}
 
     public registerConnection(connection: Connection) {
         return this.connectionManagementGateway.registerConnection(connection)

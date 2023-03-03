@@ -20,6 +20,12 @@ input RegisterConnectionInput {
   holdingServer: HoldingServerInput!
 }
 
+input SendMessageToTenantInput {
+  senderClientId: String!
+  tenantId: String!
+  message: String! # TODO: should this be a JSON object?
+}
+
 type Query {
   curTime: String!
 }
@@ -27,4 +33,7 @@ type Query {
 type Mutation {
   registerConnection(input: RegisterConnectionInput!): Connection!
   deleteConnection(tenantId: String!, connectionId: String!): String!
+
+  # Return value will always be null.
+  sendMessageToTenant(input: SendMessageToTenantInput!): String
 } 
