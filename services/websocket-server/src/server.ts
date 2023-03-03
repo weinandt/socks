@@ -10,7 +10,7 @@ const app = express();
 const port = 8080;
 
 const config = {
-    connectionManagementApiHost: "localhost",// "connection-api",
+    connectionManagementApiHost: "connection-api",
     connectionManagementApiPort: 3000
 }
 
