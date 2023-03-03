@@ -4,12 +4,13 @@ import process from "process";
 import { v4 as uuidv4 } from "uuid"
 import { Connection } from "./connection/connection";
 import { ConnectionManagementGateway } from "./connection/connectionManagementGateway";
+import { GraphqlRequestor } from "./graphqlRequestor/graphqlRequestor";
 
 const app = express();
 const port = 8080;
 
 const config = {
-    connectionManagementApiHost: "connection-api",
+    connectionManagementApiHost: "localhost",// "connection-api",
     connectionManagementApiPort: 3000
 }
 
@@ -26,7 +27,11 @@ const server = app.listen(port, () => {
 const webSocketServer = new WebSocketServer({ noServer: true });
 const websocketServerId = uuidv4()
 const holdingServerIp = process.env.POD_IP ?? "localhost"
-const connectionManagementGateway = new ConnectionManagementGateway(config.connectionManagementApiHost, config.connectionManagementApiPort, websocketServerId, holdingServerIp)
+
+// TODO: seperate into manualDi.ts
+const connectionApiGraphqlRequestor = new GraphqlRequestor(config.connectionManagementApiHost, config.connectionManagementApiPort)
+const connectionManagementGateway = new ConnectionManagementGateway(websocketServerId, holdingServerIp, connectionApiGraphqlRequestor)
+
 
 server.on('upgrade', function upgrade(request, socket, head) {
     // TODO: auth and destory socket if it fails auth.

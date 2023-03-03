@@ -23,7 +23,7 @@ function createResolvers(interactors: Interactors) {
 export function runDI() {
     const connectionManagementGateway = new ConnectionManagementGateway()
     const connectionInteractor = new ConnectionInteractor(connectionManagementGateway)
-    const messageInteractor = new MessageInteractor(connectionManagementGateway)
+    const messageInteractor = new MessageInteractor()
 
     const interactors: Interactors = {
         connectionInteractor,

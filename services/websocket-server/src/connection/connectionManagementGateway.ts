@@ -1,9 +1,9 @@
+import { GraphqlRequestor } from "../graphqlRequestor/graphqlRequestor"
+
 export class ConnectionManagementGateway {
-    constructor(private connectionApiHost: string, private connectionApiPort: number, private holdingServerId: string, private holdingServerIpAddress: string) { }
+    constructor(private holdingServerId: string, private holdingServerIpAddress: string, private graphqlRequestor: GraphqlRequestor) { }
 
     public async registerConnection(connectionId: string, tenantId: string) {
-        const url = `http://${this.connectionApiHost}:${this.connectionApiPort}/graphql`
-
         const query = `mutation RegisterConnection($input: RegisterConnectionInput!) {
             registerConnection(input: $input) {
                 id
@@ -21,20 +21,34 @@ export class ConnectionManagementGateway {
             }
         }
 
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({
-                query,
-                variables,
-            })
-        })
+        try {
+            const data = await this.graphqlRequestor.sendRequest(query, variables)
+            console.log(data)
+        }
+        catch(err: any) {
+            console.log("Problem sending request to connection api", err)
+        }
+    }
 
-        // TODO: handle errors.
-        const data = await response.json()
-        console.log(data)
+    public async sendMessageToTenant(senderClientId: string, tenantId: string, message: string) {
+        const query = `mutation SendMessageToTenant($input: SendMessageToTenantInput!) {
+            sendMessageToTenant(input: $input)
+        }`
+
+        const variables = {
+            input: {
+                senderClientId,
+                tenantId,
+                message,
+            }
+        }
+
+        try {
+            const data = await this.graphqlRequestor.sendRequest(query, variables)
+            console.log("Sent message", data)
+        }
+        catch(err: any) {
+            console.log("Problem sending request to connection api", err)
+        }
     }
 }
