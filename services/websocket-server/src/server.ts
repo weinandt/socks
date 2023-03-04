@@ -1,30 +1,31 @@
-import express from "express"
 import { WebSocketServer } from "ws"
+import { runDI } from "./manualDi";
 import process from "process";
 import { v4 as uuidv4 } from "uuid"
 import { Connection } from "./connection/connection";
 import { ConnectionManagementGateway } from "./connection/connectionManagementGateway";
 import { GraphqlRequestor } from "./graphqlRequestor/graphqlRequestor";
+import { createGraphqlApp } from "./app";
 
-const app = express();
-const port = 8080;
+const di = runDI()
+const app = createGraphqlApp(di.resolvers)
 
 const config = {
     connectionManagementApiHost: "connection-api",
-    connectionManagementApiPort: 3000
+    connectionManagementApiPort: 3000,
+    websocketPath: "/connect",
+    serverPort: 8080,
 }
 
-app.get("/message", (req, res) => {
-    res.send("Hello world!")
-});
-
 // start the Express server
-const server = app.listen(port, () => {
+const server = app.listen(config.serverPort, () => {
     console.log("Pod IP: " + process.env.POD_IP);
-    console.log(`server started at http://localhost:${port}`)
+    console.log(`server started at http://localhost:${config.serverPort}`)
+    console.log(`Websocket path: ${config.websocketPath}`)
+    console.log(`Graphql path: /graphql`)
 });
 
-const webSocketServer = new WebSocketServer({ noServer: true });
+const webSocketServer = new WebSocketServer({ noServer: true, path: config.websocketPath });
 const websocketServerId = uuidv4()
 const holdingServerIp = process.env.POD_IP ?? "localhost"
 
@@ -41,6 +42,7 @@ server.on('upgrade', function upgrade(request, socket, head) {
         await Connection.createConnection(connectionManagementGateway, "fake tenantID", ws)
     });
 });
+
 
 // Making sure the process exits on ctrl + c.
 process.on('SIGINT', function () {

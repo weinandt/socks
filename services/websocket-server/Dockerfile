@@ -13,11 +13,13 @@ FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
+COPY schema.graphql ./
+
 COPY package*.json ./
 
 RUN npm ci --only=production
 
-COPY --from=builder /usr/src/app/dist/ .
+COPY --from=builder /usr/src/app/dist/ ./src
 
 EXPOSE 8080
-ENTRYPOINT [ "node", "server.js" ]
+ENTRYPOINT [ "node", "src/server.js" ]

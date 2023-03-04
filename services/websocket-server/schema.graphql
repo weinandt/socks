@@ -1,0 +1,13 @@
+input OnMesssageForTenantInput {
+  senderClientId: String! # Only needed so the originator of the message doesn't get their own message back.
+  tenantId: String!
+  message: String! # TODO: should this be a JSON object?
+}
+
+type Query {
+  curTime: String!
+}
+
+type Mutation {
+  onMesssageForTenant(input: OnMesssageForTenantInput!): String
+} 
