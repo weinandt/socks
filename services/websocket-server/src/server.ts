@@ -1,6 +1,5 @@
 import { runDI } from "./manualDi";
 import process from "process";
-import { IncomingMessage } from "http";
 
 const config = {
     connectionManagementApiHost: "connection-api",

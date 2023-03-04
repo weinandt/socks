@@ -3,23 +3,23 @@ import { ConnectionManagementGateway } from "./connectionManagementGateway"
 import { v4 as uuidv4 } from "uuid"
 
 export class Connection {
-    private constructor(private connectionId: string, private tenantId: string, private ws: WebSocket, private connectionManagementGateway: ConnectionManagementGateway) {
+    private constructor(public connectionId: string, public tenantId: string, private ws: WebSocket, private connectionManagementGateway: ConnectionManagementGateway, private onCloseNotifier: (connection: Connection)=> void) {
         ws.on('message', (data) => this.onMessage(data));
         ws.on('close', () => this.onClose());
     }
 
-    public static async createConnection(connectionManagementGateway: ConnectionManagementGateway, tenantId: string, ws: WebSocket): Promise<Connection> {
+    public static async createConnection(connectionManagementGateway: ConnectionManagementGateway, tenantId: string, ws: WebSocket, onCloseNotifier: (connection: Connection)=> void): Promise<Connection> {
         const connectionId = uuidv4()
 
 
         await connectionManagementGateway.registerConnection(connectionId, tenantId)
 
-        return new Connection(connectionId, tenantId, ws, connectionManagementGateway)
+        return new Connection(connectionId, tenantId, ws, connectionManagementGateway, onCloseNotifier)
     }
 
     private onClose() {
-        // TODO: call registration api to de-register.
-        console.log('disconnected');
+        // Notifying the server to clean up the connection.
+        this.onCloseNotifier(this)
     }
 
     private onMessage(data: RawData) {

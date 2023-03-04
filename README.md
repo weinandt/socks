@@ -22,8 +22,8 @@ Infrastructure and patterns for a scalable web socket solution.
 
 
 ## TODO
-1. Have websocket container find it's ip address.
-1. Use helm
+1. Re-name 'connection-api' to 'directory service'
+1. Add "onError" event handlers to websocket server and the individual websocket connections.
 1. Add auth to websocket server
 1. Run a logging container in each pod. Logs should be accessable in the browser.
     - Make sure the log rotation is configured.
