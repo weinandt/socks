@@ -1,4 +1,4 @@
-import express from "express"
+import { Express } from "express"
 import { buildSchema } from 'graphql'
 import path from 'path'
 import fs from 'fs'
@@ -11,15 +11,12 @@ const readSchemaAsString = () => {
     return schemaAsString
 }
 
-export function createGraphqlApp(resolvers: any) {
+export function createGraphqlApp(app: Express, resolvers: any) {
     const schema = buildSchema(readSchemaAsString())
     const schemaWithResolvers = addResolversToSchema({
         schema,
         resolvers: resolvers,
     })
-
-    const app = express()
-    app.use(express.json())
 
     app.use('/graphql', graphqlHTTP(async (req, res, graphqlParams) => {
         // TODO: add context if wanting to do auth or something.
