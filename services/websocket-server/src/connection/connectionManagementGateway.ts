@@ -21,13 +21,7 @@ export class ConnectionManagementGateway {
             }
         }
 
-        try {
-            const data = await this.graphqlRequestor.sendRequest(query, variables)
-            console.log(data)
-        }
-        catch(err: any) {
-            console.log("Problem sending request to connection api", err)
-        }
+        return this.graphqlRequestor.sendRequest(query, variables)
     }
 
     public async sendMessageToTenant(senderClientId: string, tenantId: string, message: string) {

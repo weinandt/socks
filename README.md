@@ -25,6 +25,7 @@ Infrastructure and patterns for a scalable web socket solution.
 1. Re-name 'connection-api' to 'directory service'
 1. Add "onError" event handlers to websocket server and the individual websocket connections.
 1. Add auth to websocket server
+    - Failure to auth should kill connection.
 1. Run a logging container in each pod. Logs should be accessable in the browser.
     - Make sure the log rotation is configured.
 1. Make local kind cluster multi-node

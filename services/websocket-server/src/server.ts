@@ -2,7 +2,7 @@ import { runDI } from "./manualDi";
 import process from "process";
 
 const config = {
-    connectionManagementApiHost: "connection-api",
+    connectionManagementApiHost: "localhost", //"connection-api",
     connectionManagementApiPort: 3000,
     websocketPath: "/connect",
     serverPort: 8080,

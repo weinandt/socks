@@ -17,6 +17,25 @@ export class Connection {
         return new Connection(connectionId, tenantId, ws, connectionManagementGateway, onCloseNotifier)
     }
 
+    public async sendMessage(message: string) {
+        return new Promise<void>((resolve, reject) => {
+            try {
+                this.ws.send(message, err => {
+                    if (err != null) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+            }
+            catch (err: any) {
+                console.log(`Error sending message to client`, err)
+                reject()
+            }
+        })
+    }
+
     private onClose() {
         // Notifying the server to clean up the connection.
         this.onCloseNotifier(this)
